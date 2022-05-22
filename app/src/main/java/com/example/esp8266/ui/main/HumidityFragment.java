@@ -1,5 +1,8 @@
 package com.example.esp8266.ui.main;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.esp8266.MainActivity;
 import com.example.esp8266.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +36,7 @@ public class HumidityFragment extends Fragment {
         View root=inflater .inflate(R.layout.fragment_humidity,container,false);
         final TextView textView=root.findViewById(R.id.humidityTextView);
         final ProgressBar progressBar=  root.findViewById(R.id.humidityProgressBar);
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        FirebaseDatabase database=FirebaseDatabase.getInstance("https://esp8266-67ac6-default-rtdb.firebaseio.com/");
         DatabaseReference databaseReference= database.getReference("test/humidity");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -2,6 +2,9 @@ package com.example.esp8266.ui.main;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.esp8266.MainActivity;
 import com.example.esp8266.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,12 +40,13 @@ public class TemperatureFragment extends Fragment {
         View root=inflater .inflate(R.layout.fragment_temperature,container,false);
         final TextView textView=root.findViewById(R.id.temperatureTextView);
         final ProgressBar progressBar=  root.findViewById(R.id.temperatureProgressBar);
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
+
+        FirebaseDatabase database=FirebaseDatabase.getInstance("https://esp8266-67ac6-default-rtdb.firebaseio.com/");
         DatabaseReference databaseReference= database.getReference("test/temperature");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String value=snapshot.getValue().toString();
+                String value =snapshot.getValue().toString();
                 textView.setText(value+"°C");
                 progressBar.setProgress(Math.round(Float.parseFloat(value)));
             }
@@ -54,6 +59,7 @@ public class TemperatureFragment extends Fragment {
         });
         return root;
     }
+
     private int getID(){
         return (int) new Date().getTime();
     }
