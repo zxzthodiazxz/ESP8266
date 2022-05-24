@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
         FirebaseDatabase database=FirebaseDatabase.getInstance("https://esp8266-67ac6-default-rtdb.firebaseio.com/");
-        DatabaseReference databaseReference= database.getReference("test/json/DateTime");
+        DatabaseReference databaseReference= database.getReference("test/DateTime");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     .setAutoCancel(true)
                     .build();
             NotificationManagerCompat notificationManager= NotificationManagerCompat.from(MainActivity.this);
-            notificationManager.notify(getID(),notification);
+            notificationManager.notify(1,notification);
         }
     }
 }
